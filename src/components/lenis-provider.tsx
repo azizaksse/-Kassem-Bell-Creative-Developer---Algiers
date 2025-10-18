@@ -14,6 +14,9 @@ export function LenisProvider({ children }: LenisProviderProps) {
       wheelMultiplier: 1,
       touchMultiplier: 1.25,
       smoothWheel: true,
+      syncTouch: true,
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
     let animationFrame: number;

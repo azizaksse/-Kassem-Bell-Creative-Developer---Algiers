@@ -169,7 +169,15 @@ export function LavaLamp() {
             position: [0, 0, 2],
           }}
           orthographic
-          gl={{ antialias: true }}
+          gl={{ 
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance",
+            stencil: false,
+            depth: false
+          }}
+          dpr={[1, 2]}
+          performance={{ min: 0.5 }}
       >
         <LavaLampShader />
       </Canvas>

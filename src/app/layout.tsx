@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/components/lenis-provider";
+import { PerformanceOptimizer } from "@/components/performance-optimizer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,20 @@ export const metadata: Metadata = {
       "Immersive digital products designed with narrative, motion, and engineering polish.",
     type: "website",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 };
 
 export default function RootLayout({
@@ -41,9 +56,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="theme-color" content="#040810" />
+        <meta name="color-scheme" content="dark" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <PerformanceOptimizer />
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
