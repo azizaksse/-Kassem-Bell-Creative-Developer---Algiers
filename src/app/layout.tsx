@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/components/lenis-provider";
-import { PerformanceOptimizer } from "@/components/performance-optimizer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,7 +66,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PerformanceOptimizer />
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
