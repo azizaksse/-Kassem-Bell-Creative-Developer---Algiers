@@ -177,7 +177,7 @@ export function LavaLamp() {
   const [isLowPerformance, setIsLowPerformance] = useState(false);
 
   useEffect(() => {
-    // Detect device performance
+    // Detect device performance - but be less aggressive
     const checkPerformance = () => {
       const canvas = document.createElement('canvas');
       const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
@@ -188,18 +188,18 @@ export function LavaLamp() {
         return;
       }
 
-      // Check for mobile devices
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      
-      // Check for low-end devices
-      const isLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
-      
-      // Check for reduced motion preference
+      // Only disable 3D for very low-end devices or explicit reduced motion
+      const isVeryLowEnd = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 2;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       
-      if (isMobile || isLowEnd || prefersReducedMotion) {
+      // Keep 3D for most devices, only disable for very low-end or reduced motion
+      if (isVeryLowEnd || prefersReducedMotion) {
         setIsLowPerformance(true);
         setUse3D(false);
+      } else {
+        // Enable 3D for desktop and most mobile devices
+        setIsLowPerformance(false);
+        setUse3D(true);
       }
     };
 
