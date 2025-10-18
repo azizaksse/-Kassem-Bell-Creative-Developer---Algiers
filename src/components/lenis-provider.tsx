@@ -24,13 +24,13 @@ export function LenisProvider({ children }: LenisProviderProps) {
 
     const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
     const lenis = new Lenis({
-      duration: 0.6,
-      lerp: hasFinePointer ? 0.24 : 0.16,
-      wheelMultiplier: hasFinePointer ? 1 : 1.1,
-      touchMultiplier: hasFinePointer ? 1 : 1.15,
+      duration: 0.4, // Faster duration for responsiveness
+      lerp: hasFinePointer ? 0.3 : 0.2, // More responsive
+      wheelMultiplier: hasFinePointer ? 1.2 : 1.5, // Faster scrolling
+      touchMultiplier: hasFinePointer ? 1.2 : 1.8, // Much faster touch
       smoothWheel: hasFinePointer,
       syncTouch: false,
-      easing: (t: number) => t,
+      easing: (t: number) => 1 - Math.pow(1 - t, 2), // Quadratic ease out
     });
 
     let animationFrame: number;
